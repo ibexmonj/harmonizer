@@ -1,0 +1,32 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: manager-role
+rules:
+- apiGroups:
+  - harmonizer.io
+  resources:
+  - teams
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - harmonizer.io
+  resources:
+  - teams/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - harmonizer.io
+  resources:
+  - teams/status
+  verbs:
+  - get
+  - patch
+  - update

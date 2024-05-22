@@ -1,8 +1,18 @@
-# hyperdriveharmonizer
-// TODO(user): Add simple overview of use/purpose
+# harmonize
+
+"Harmonizer" is a Kubernetes operator that synchronizes GitHub teams with Kubernetes namespaces, creating a corresponding custom resource and namespace for each GitHub team.
+    
 
 ## Description
-// TODO(user): An in-depth paragraph about your project and overview of use
+This project, named "Harmonizer", is a Kubernetes operator developed in Go. It is designed to synchronize GitHub teams with Kubernetes namespaces. The operator uses the GitHub API to fetch the list of teams from a GitHub organization and creates a corresponding custom resource for each team in the Kubernetes cluster.
+
+The custom resource, named `Team`, contains the team name and its members. When a `Team` resource is created, the operator also creates a corresponding Kubernetes namespace. This namespace is labeled with the team's name to indicate ownership.
+
+The operator uses the Kubernetes controller-runtime library and is designed to be deployed in a Kubernetes cluster. It uses leader election to ensure that only one instance of the operator is active at a time.
+
+The project also includes a Makefile with targets for building and pushing the Docker image, installing and uninstalling the CRDs, and deploying and undeploying the operator. There is also a target for building an installer, which generates a YAML file that can be used to install the operator and its dependencies.
+
+The project is licensed under the Apache License, Version 2.0.
 
 ## Getting Started
 
@@ -16,7 +26,7 @@
 **Build and push your image to the location specified by `IMG`:**
 
 ```sh
-make docker-build docker-push IMG=<some-registry>/hyperdriveharmonizer:tag
+make docker-build docker-push IMG=<some-registry>/harmonizer:tag
 ```
 
 **NOTE:** This image ought to be published in the personal registry you specified.
@@ -32,7 +42,7 @@ make install
 **Deploy the Manager to the cluster with the image specified by `IMG`:**
 
 ```sh
-make deploy IMG=<some-registry>/hyperdriveharmonizer:tag
+make deploy IMG=<some-registry>/harmonizer:tag
 ```
 
 > **NOTE**: If you encounter RBAC errors, you may need to grant yourself cluster-admin
@@ -73,7 +83,7 @@ Following are the steps to build the installer and distribute this project to us
 1. Build the installer for the image built and published in the registry:
 
 ```sh
-make build-installer IMG=<some-registry>/hyperdriveharmonizer:tag
+make build-installer IMG=<some-registry>/harmonizer:tag
 ```
 
 NOTE: The makefile target mentioned above generates an 'install.yaml'
@@ -86,7 +96,7 @@ its dependencies.
 Users can just run kubectl apply -f <URL for YAML BUNDLE> to install the project, i.e.:
 
 ```sh
-kubectl apply -f https://raw.githubusercontent.com/<org>/hyperdriveharmonizer/<tag or branch>/dist/install.yaml
+kubectl apply -f https://raw.githubusercontent.com/<org>/harmonizer/<tag or branch>/dist/install.yaml
 ```
 
 ## Contributing
