@@ -83,6 +83,12 @@ func FetchAndCreateTeams(ctx context.Context, r *TeamReconciler, req ctrl.Reques
 					return err
 				}
 				log.Info("created Team resource", "name", teamName)
+
+				// Create a namespace for the team
+				if err := CreateNamespace(ctx, r, teamName); err != nil {
+					return err
+				}
+
 			} else {
 				// Error reading the object - requeue the request.
 				log.Error(err, "failed to get Team resource")
