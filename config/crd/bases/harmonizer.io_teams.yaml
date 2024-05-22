@@ -5,9 +5,9 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.11.3
   creationTimestamp: null
-  name: teams.hyperdriveharmonizer.io
+  name: teams.harmonizer.io
 spec:
-  group: hyperdriveharmonizer.io
+  group: harmonizer.io
   names:
     kind: Team
     listKind: TeamList

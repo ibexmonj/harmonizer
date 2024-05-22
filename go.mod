@@ -1,4 +1,4 @@
-module github.com/ibexmonj/hyperdriveharmonizer
+module github.com/ibexmonj/harmonizer
 
 go 1.22.0
 

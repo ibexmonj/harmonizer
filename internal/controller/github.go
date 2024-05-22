@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/google/go-github/v33/github"
-	hyperdriveharmonizeriov1 "github.com/ibexmonj/hyperdriveharmonizer/api/v1beta1"
+	harmonizeriov1 "github.com/ibexmonj/harmonizer/api/v1beta1"
 	"golang.org/x/oauth2"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -48,7 +48,7 @@ func FetchAndCreateTeams(ctx context.Context, r *TeamReconciler, req ctrl.Reques
 			Name:      teamName,
 			Namespace: "default", // TODO: Modify as needed
 		}
-		var existingTeam hyperdriveharmonizeriov1.Team
+		var existingTeam harmonizeriov1.Team
 		if err := r.Get(ctx, namespacedName, &existingTeam); err != nil {
 			if errors.IsNotFound(err) {
 
@@ -68,12 +68,12 @@ func FetchAndCreateTeams(ctx context.Context, r *TeamReconciler, req ctrl.Reques
 				}
 
 				// The custom resource doesn't exist, so create it
-				newTeam := &hyperdriveharmonizeriov1.Team{
+				newTeam := &harmonizeriov1.Team{
 					ObjectMeta: metav1.ObjectMeta{
 						Name:      teamName,
 						Namespace: "default", // TODO: Modify as needed
 					},
-					Spec: hyperdriveharmonizeriov1.TeamSpec{
+					Spec: harmonizeriov1.TeamSpec{
 						TeamName: teamName,
 						Members:  memberNames,
 					},

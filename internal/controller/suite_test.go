@@ -32,7 +32,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	hyperdriveharmonizeriov1 "github.com/ibexmonj/hyperdriveharmonizer/api/v1beta1"
+	harmonizeriov1 "github.com/ibexmonj/harmonizer/api/v1beta1"
 	//+kubebuilder:scaffold:imports
 )
 
@@ -72,7 +72,7 @@ var _ = BeforeSuite(func() {
 	Expect(err).NotTo(HaveOccurred())
 	Expect(cfg).NotTo(BeNil())
 
-	err = hyperdriveharmonizeriov1.AddToScheme(scheme.Scheme)
+	err = harmonizeriov1.AddToScheme(scheme.Scheme)
 	Expect(err).NotTo(HaveOccurred())
 
 	//+kubebuilder:scaffold:scheme

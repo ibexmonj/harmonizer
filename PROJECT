@@ -2,19 +2,19 @@
 # This file is used to track the info used to scaffold your project
 # and allow the plugins properly work.
 # More info: https://book.kubebuilder.io/reference/project-config.html
-domain: hyperdriveharmonizer.io
+domain: harmonizer.io
 layout:
 - go.kubebuilder.io/v4
-projectName: hyperdriveharmonizer
-repo: github.com/ibexmonj/hyperdriveharmonizer
+projectName: harmonizer
+repo: github.com/ibexmonj/harmonizer
 resources:
 - api:
     crdVersion: v1
     namespaced: true
   controller: true
-  domain: hyperdriveharmonizer.io
-  group: hyperdriveharmonizer.io
+  domain: harmonizer.io
+  group: harmonizer.io
   kind: Team
-  path: github.com/ibexmonj/hyperdriveharmonizer/api/v1
+  path: github.com/ibexmonj/harmonizer/api/v1
   version: v1
 version: "3"

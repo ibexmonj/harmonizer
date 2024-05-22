@@ -3,12 +3,12 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
 metadata:
   labels:
-    app.kubernetes.io/name: hyperdriveharmonizer
+    app.kubernetes.io/name: harmonizer
     app.kubernetes.io/managed-by: kustomize
   name: team-editor-role
 rules:
 - apiGroups:
-  - hyperdriveharmonizer.io
+  - harmonizer.io
   resources:
   - teams
   verbs:
@@ -20,7 +20,7 @@ rules:
   - update
   - watch
 - apiGroups:
-  - hyperdriveharmonizer.io
+  - harmonizer.io
   resources:
   - teams/status
   verbs:

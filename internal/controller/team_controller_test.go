@@ -27,7 +27,7 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	hyperdriveharmonizeriov1 "github.com/ibexmonj/hyperdriveharmonizer/api/v1beta1"
+	harmonizeriov1 "github.com/ibexmonj/harmonizer/api/v1beta1"
 )
 
 var _ = Describe("Team Controller", func() {
@@ -40,13 +40,13 @@ var _ = Describe("Team Controller", func() {
 			Name:      resourceName,
 			Namespace: "default", // TODO(user):Modify as needed
 		}
-		team := &hyperdriveharmonizeriov1.Team{}
+		team := &harmonizeriov1.Team{}
 
 		BeforeEach(func() {
 			By("creating the custom resource for the Kind Team")
 			err := k8sClient.Get(ctx, typeNamespacedName, team)
 			if err != nil && errors.IsNotFound(err) {
-				resource := &hyperdriveharmonizeriov1.Team{
+				resource := &harmonizeriov1.Team{
 					ObjectMeta: metav1.ObjectMeta{
 						Name:      resourceName,
 						Namespace: "default",
@@ -59,7 +59,7 @@ var _ = Describe("Team Controller", func() {
 
 		AfterEach(func() {
 			// TODO(user): Cleanup logic after each test, like removing the resource instance.
-			resource := &hyperdriveharmonizeriov1.Team{}
+			resource := &harmonizeriov1.Team{}
 			err := k8sClient.Get(ctx, typeNamespacedName, resource)
 			Expect(err).NotTo(HaveOccurred())
 

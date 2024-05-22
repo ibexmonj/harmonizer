@@ -14,9 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// Package v1beta1 contains API Schema definitions for the hyperdriveharmonizer.io v1beta1 API group
+// Package v1beta1 contains API Schema definitions for the harmonizer.io v1beta1 API group
 // +kubebuilder:object:generate=true
-// +groupName=hyperdriveharmonizer.io
+// +groupName=harmonizer.io
 package v1beta1
 
 import (
@@ -26,7 +26,7 @@ import (
 
 var (
 	// GroupVersion is group version used to register these objects
-	GroupVersion = schema.GroupVersion{Group: "hyperdriveharmonizer.io", Version: "v1beta1"}
+	GroupVersion = schema.GroupVersion{Group: "harmonizer.io", Version: "v1beta1"}
 
 	// SchemeBuilder is used to add go types to the GroupVersionKind scheme
 	SchemeBuilder = &scheme.Builder{GroupVersion: GroupVersion}

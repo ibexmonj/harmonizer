@@ -24,10 +24,10 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
-	"github.com/ibexmonj/hyperdriveharmonizer/test/utils"
+	"github.com/ibexmonj/harmonizer/test/utils"
 )
 
-const namespace = "hyperdriveharmonizer-system"
+const namespace = "harmonizer-system"
 
 var _ = Describe("controller", Ordered, func() {
 	BeforeAll(func() {
@@ -60,7 +60,7 @@ var _ = Describe("controller", Ordered, func() {
 			var err error
 
 			// projectimage stores the name of the image used in the example
-			var projectimage = "example.com/hyperdriveharmonizer:v0.0.1"
+			var projectimage = "example.com/harmonizer:v0.0.1"
 
 			By("building the manager(Operator) image")
 			cmd := exec.Command("make", "docker-build", fmt.Sprintf("IMG=%s", projectimage))
