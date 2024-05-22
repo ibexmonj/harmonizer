@@ -1,8 +1,18 @@
 # harmonize
-// TODO(user): Add simple overview of use/purpose
+
+"Harmonizer" is a Kubernetes operator that synchronizes GitHub teams with Kubernetes namespaces, creating a corresponding custom resource and namespace for each GitHub team.
+    
 
 ## Description
-// TODO(user): An in-depth paragraph about your project and overview of use
+This project, named "Harmonizer", is a Kubernetes operator developed in Go. It is designed to synchronize GitHub teams with Kubernetes namespaces. The operator uses the GitHub API to fetch the list of teams from a GitHub organization and creates a corresponding custom resource for each team in the Kubernetes cluster.
+
+The custom resource, named `Team`, contains the team name and its members. When a `Team` resource is created, the operator also creates a corresponding Kubernetes namespace. This namespace is labeled with the team's name to indicate ownership.
+
+The operator uses the Kubernetes controller-runtime library and is designed to be deployed in a Kubernetes cluster. It uses leader election to ensure that only one instance of the operator is active at a time.
+
+The project also includes a Makefile with targets for building and pushing the Docker image, installing and uninstalling the CRDs, and deploying and undeploying the operator. There is also a target for building an installer, which generates a YAML file that can be used to install the operator and its dependencies.
+
+The project is licensed under the Apache License, Version 2.0.
 
 ## Getting Started
 
