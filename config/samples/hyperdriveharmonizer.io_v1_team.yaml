@@ -1,0 +1,8 @@
+apiVersion: hyperdriveharmonizer.io/v1
+kind: Team
+metadata:
+  labels:
+    app.kubernetes.io/name: hyperdriveharmonizer
+    app.kubernetes.io/managed-by: kustomize
+  name: tbd
+spec:

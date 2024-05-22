@@ -1,0 +1,23 @@
+# permissions for end users to view teams.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: hyperdriveharmonizer
+    app.kubernetes.io/managed-by: kustomize
+  name: team-viewer-role
+rules:
+- apiGroups:
+  - hyperdriveharmonizer.io
+  resources:
+  - teams
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - hyperdriveharmonizer.io
+  resources:
+  - teams/status
+  verbs:
+  - get
