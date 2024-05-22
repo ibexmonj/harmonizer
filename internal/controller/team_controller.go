@@ -2,7 +2,7 @@ package controller
 
 import (
 	"context"
-	hyperdriveharmonizeriov1 "github.com/ibexmonj/hyperdriveharmonizer/api/v1"
+	hyperdriveharmonizeriov1 "github.com/ibexmonj/hyperdriveharmonizer/api/v1beta1"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"

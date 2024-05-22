@@ -1,4 +1,4 @@
-apiVersion: hyperdriveharmonizer.io/v1
+apiVersion: hyperdriveharmonizer.io/v1beta1
 kind: Team
 metadata:
   labels:

@@ -15,7 +15,7 @@ spec:
     singular: team
   scope: Namespaced
   versions:
-  - name: v1
+  - name: v1beta1
     schema:
       openAPIV3Schema:
         description: Team is the Schema for the teams API

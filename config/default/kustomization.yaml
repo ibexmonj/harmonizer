@@ -47,7 +47,7 @@ patches:
 #  - source: # Add cert-manager annotation to ValidatingWebhookConfiguration, MutatingWebhookConfiguration and CRDs
 #      kind: Certificate
 #      group: cert-manager.io
-#      version: v1
+#      version: v1beta1
 #      name: serving-cert # this name should match the one in certificate.yaml
 #      fieldPath: .metadata.namespace # namespace of the certificate CR
 #    targets:
@@ -78,7 +78,7 @@ patches:
 #  - source:
 #      kind: Certificate
 #      group: cert-manager.io
-#      version: v1
+#      version: v1beta1
 #      name: serving-cert # this name should match the one in certificate.yaml
 #      fieldPath: .metadata.name
 #    targets:
@@ -108,14 +108,14 @@ patches:
 #          create: true
 #  - source: # Add cert-manager annotation to the webhook Service
 #      kind: Service
-#      version: v1
+#      version: v1beta1
 #      name: webhook-service
 #      fieldPath: .metadata.name # namespace of the service
 #    targets:
 #      - select:
 #          kind: Certificate
 #          group: cert-manager.io
-#          version: v1
+#          version: v1beta1
 #        fieldPaths:
 #          - .spec.dnsNames.0
 #          - .spec.dnsNames.1
@@ -125,14 +125,14 @@ patches:
 #          create: true
 #  - source:
 #      kind: Service
-#      version: v1
+#      version: v1beta1
 #      name: webhook-service
 #      fieldPath: .metadata.namespace # namespace of the service
 #    targets:
 #      - select:
 #          kind: Certificate
 #          group: cert-manager.io
-#          version: v1
+#          version: v1beta1
 #        fieldPaths:
 #          - .spec.dnsNames.0
 #          - .spec.dnsNames.1

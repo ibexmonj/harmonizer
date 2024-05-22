@@ -1,5 +1,5 @@
 # Prometheus Monitor Service (Metrics)
-apiVersion: monitoring.coreos.com/v1
+apiVersion: monitoring.coreos.com/v1beta1
 kind: ServiceMonitor
 metadata:
   labels:

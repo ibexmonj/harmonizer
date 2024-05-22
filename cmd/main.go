@@ -35,7 +35,7 @@ import (
 	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
 
-	hyperdriveharmonizeriov1 "github.com/ibexmonj/hyperdriveharmonizer/api/v1"
+	hyperdriveharmonizeriov1beta1 "github.com/ibexmonj/hyperdriveharmonizer/api/v1beta1"
 	"github.com/ibexmonj/hyperdriveharmonizer/internal/controller"
 
 	"github.com/ibexmonj/hyperdriveharmonizer/internal/utils"
@@ -50,7 +50,7 @@ var (
 func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
-	utilruntime.Must(hyperdriveharmonizeriov1.AddToScheme(scheme))
+	utilruntime.Must(hyperdriveharmonizeriov1beta1.AddToScheme(scheme))
 	//+kubebuilder:scaffold:scheme
 }
 
