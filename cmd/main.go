@@ -19,8 +19,11 @@ package main
 import (
 	"context"
 	"crypto/tls"
+	"errors"
 	"flag"
+	"github.com/ibexmonj/harmonizer/internal/utils"
 	"os"
+	"sigs.k8s.io/controller-runtime/pkg/manager"
 
 	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
 	// to ensure that exec-entrypoint and run can make use of them.
@@ -37,8 +40,6 @@ import (
 
 	harmonizeriov1beta1 "github.com/ibexmonj/harmonizer/api/v1beta1"
 	"github.com/ibexmonj/harmonizer/internal/controller"
-
-	"github.com/ibexmonj/harmonizer/internal/utils"
 	//+kubebuilder:scaffold:imports
 )
 
@@ -76,6 +77,8 @@ func main() {
 	flag.Parse()
 
 	ctrl.SetLogger(zap.New(zap.UseFlagOptions(&opts)))
+
+	setupLog.Info("Starting application")
 
 	// if the enable-http2 flag is false (the default), http/2 should be disabled
 	// due to its vulnerabilities. More specifically, disabling http/2 will
@@ -125,9 +128,21 @@ func main() {
 		os.Exit(1)
 	}
 
-	// Create a "dummy" Team resource
-	if err := utils.CreateDummyTeam(context.Background(), mgr.GetClient()); err != nil {
-		setupLog.Error(err, "unable to create dummy Team resource")
+	// Create a Runnable that creates the dummy Team resource
+	createDummyTeamRunnable := manager.RunnableFunc(func(ctx context.Context) error {
+		// Wait for the cache to start
+		cacheStarted := mgr.GetCache().WaitForCacheSync(ctx)
+		if !cacheStarted {
+			return errors.New("timed out waiting for cache to sync")
+		}
+
+		// Create the dummy team
+		return utils.CreateDummyTeam(ctx, mgr.GetClient())
+	})
+
+	// Add the Runnable to the manager
+	if err := mgr.Add(createDummyTeamRunnable); err != nil {
+		setupLog.Error(err, "unable to add dummy Team creation Runnable to manager")
 		os.Exit(1)
 	}
 
@@ -154,4 +169,12 @@ func main() {
 		setupLog.Error(err, "problem running manager")
 		os.Exit(1)
 	}
+	/*
+		// Create a "dummy" Team resource
+		if err := utils.CreateDummyTeam(context.Background(), mgr.GetClient()); err != nil {
+			setupLog.Error(err, "unable to create dummy Team resource")
+			os.Exit(1)
+		}
+
+	*/
 }
