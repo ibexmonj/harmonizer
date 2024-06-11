@@ -21,7 +21,9 @@ import (
 	"crypto/tls"
 	"errors"
 	"flag"
+	"github.com/google/go-github/v33/github"
 	"github.com/ibexmonj/harmonizer/internal/utils"
+	"golang.org/x/oauth2"
 	"os"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
 
@@ -53,6 +55,18 @@ func init() {
 
 	utilruntime.Must(harmonizeriov1beta1.AddToScheme(scheme))
 	//+kubebuilder:scaffold:scheme
+}
+
+type GitHubClientWrapper struct {
+	client *github.Client
+}
+
+func (g *GitHubClientWrapper) ListTeams(ctx context.Context, org string, opt *github.ListOptions) ([]*github.Team, *github.Response, error) {
+	return g.client.Teams.ListTeams(ctx, org, opt)
+}
+
+func (g *GitHubClientWrapper) ListTeamMembersBySlug(ctx context.Context, org string, slug string, opt *github.TeamListTeamMembersOptions) ([]*github.User, *github.Response, error) {
+	return g.client.Teams.ListTeamMembersBySlug(ctx, org, slug, opt)
 }
 
 func main() {
@@ -145,10 +159,25 @@ func main() {
 		setupLog.Error(err, "unable to add dummy Team creation Runnable to manager")
 		os.Exit(1)
 	}
+	ctx := context.Background()
+	token := os.Getenv("GITHUB_TOKEN") // Get the GitHub token from the environment variable
+	if token == "" {
+		setupLog.Error(errors.New("GITHUB_TOKEN environment variable not set"), "unable to create GitHub client")
+		os.Exit(1)
+	}
+	ts := oauth2.StaticTokenSource(
+		&oauth2.Token{AccessToken: token},
+	)
+	tc := oauth2.NewClient(ctx, ts)
+
+	ghClient := &GitHubClientWrapper{
+		client: github.NewClient(tc),
+	}
 
 	if err = (&controller.TeamReconciler{
-		Client: mgr.GetClient(),
-		Scheme: mgr.GetScheme(),
+		Client:       mgr.GetClient(),
+		Scheme:       mgr.GetScheme(),
+		GitHubClient: ghClient,
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "Team")
 		os.Exit(1)
