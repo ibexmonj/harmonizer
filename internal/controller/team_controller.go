@@ -12,7 +12,8 @@ import (
 // TeamReconciler reconciles a Team object
 type TeamReconciler struct {
 	client.Client
-	Scheme *runtime.Scheme
+	Scheme       *runtime.Scheme
+	GitHubClient GitHubClient
 }
 
 //+kubebuilder:rbac:groups=harmonizer.io,resources=teams,verbs=get;list;watch;create;update;patch;delete
@@ -20,7 +21,7 @@ type TeamReconciler struct {
 //+kubebuilder:rbac:groups=harmonizer.io,resources=teams/finalizers,verbs=update
 
 func (r *TeamReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	err := FetchAndCreateTeams(ctx, r, req)
+	err := FetchAndCreateTeams(ctx, r, req, r.GitHubClient)
 	if err != nil {
 		return ctrl.Result{}, err
 	}
