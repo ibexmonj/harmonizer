@@ -7,9 +7,18 @@ import (
 	harmonizeriov1 "github.com/ibexmonj/harmonizer/api/v1beta1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
 	ctrl "sigs.k8s.io/controller-runtime"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 )
+
+// TeamReconciler reconciles a Team object
+type TeamReconciler struct {
+	client.Client
+	Scheme       *runtime.Scheme
+	GitHubClient GitHubClient
+}
 
 type GitHubClient interface {
 	ListTeams(ctx context.Context, org string, opt *github.ListOptions) ([]*github.Team, *github.Response, error)
@@ -27,6 +36,15 @@ func FetchTeams(ctx context.Context, ghClient GitHubClient) ([]*github.Team, err
 
 // CreateTeamResource creates a new Team resource in Kubernetes if it doesn't already exist.
 func CreateTeamResource(ctx context.Context, r *TeamReconciler, team *github.Team, ghClient GitHubClient) error {
+	if r == nil {
+		return fmt.Errorf("client is nil")
+	}
+	if team == nil {
+		return fmt.Errorf("team is nil")
+	}
+	if ghClient == nil {
+		return fmt.Errorf("GitHub client is nil")
+	}
 	teamName := team.GetName()
 	namespacedName := types.NamespacedName{
 		Name:      teamName,
