@@ -21,10 +21,11 @@ import (
 	"crypto/tls"
 	"errors"
 	"flag"
+	"os"
+
 	"github.com/google/go-github/v33/github"
 	"github.com/ibexmonj/harmonizer/internal/utils"
 	"golang.org/x/oauth2"
-	"os"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
 
 	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
@@ -61,11 +62,20 @@ type GitHubClientWrapper struct {
 	client *github.Client
 }
 
-func (g *GitHubClientWrapper) ListTeams(ctx context.Context, org string, opt *github.ListOptions) ([]*github.Team, *github.Response, error) {
+func (g *GitHubClientWrapper) ListTeams(
+	ctx context.Context,
+	org string,
+	opt *github.ListOptions,
+) ([]*github.Team, *github.Response, error) {
 	return g.client.Teams.ListTeams(ctx, org, opt)
 }
 
-func (g *GitHubClientWrapper) ListTeamMembersBySlug(ctx context.Context, org string, slug string, opt *github.TeamListTeamMembersOptions) ([]*github.User, *github.Response, error) {
+func (g *GitHubClientWrapper) ListTeamMembersBySlug(
+	ctx context.Context,
+	org string,
+	slug string,
+	opt *github.TeamListTeamMembersOptions,
+) ([]*github.User, *github.Response, error) {
 	return g.client.Teams.ListTeamMembersBySlug(ctx, org, slug, opt)
 }
 
