@@ -18,13 +18,14 @@ package controller_test
 
 import (
 	"fmt"
-	harmonizeriov1 "github.com/ibexmonj/harmonizer/api/v1beta1"
-	"k8s.io/client-go/kubernetes/scheme"
 	"path/filepath"
 	"runtime"
+	"testing"
+
+	harmonizeriov1 "github.com/ibexmonj/harmonizer/api/v1beta1"
+	"k8s.io/client-go/kubernetes/scheme"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
-	"testing"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"

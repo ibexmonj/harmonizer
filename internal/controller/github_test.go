@@ -2,6 +2,7 @@ package controller_test
 
 import (
 	"context"
+
 	"github.com/google/go-github/v33/github"
 	harmonizeriov1 "github.com/ibexmonj/harmonizer/api/v1beta1"
 	"github.com/ibexmonj/harmonizer/internal/controller"

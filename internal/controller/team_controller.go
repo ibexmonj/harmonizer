@@ -2,9 +2,10 @@ package controller
 
 import (
 	"context"
+	"time"
+
 	harmonizeriov1 "github.com/ibexmonj/harmonizer/api/v1beta1"
 	ctrl "sigs.k8s.io/controller-runtime"
-	"time"
 )
 
 //+kubebuilder:rbac:groups=harmonizer.io,resources=teams,verbs=get;list;watch;create;update;patch;delete
